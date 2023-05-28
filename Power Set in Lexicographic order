@@ -3,6 +3,9 @@ Output : a ab abc ac b bc c
 The idea is to sort array first. After sorting, one by one fix characters and recursively generates all subsets starting from them. 
 After every recursive call, we remove last character so that next permutation can be generated. 
 
+lexicographical order is a way for formalizing word order where the order of the underlying symbols is given. In programming, 
+lexicographical order is popularly known as Dictionary order and is used to sort a string array, compare two strings, or sorting array elements.
+
 Time Complexity: O(n*2n) 
 Auxiliary Space: O(1)
 
