@@ -1,0 +1,138 @@
+Fact Digit Sum
+Let us define A(n) for positive integer N as a sum of factorials of its digits. For example, A(154) = 1!+ 5! +4! = 145. Given a number 'X', you need to print the minimum number L, such that A(L) = X. If no such L exists, then print -1.
+
+
+
+Format:
+
+Input:
+
+First-line contains 'T' - the number of test cases. Then each line contains an integer 'X'.
+
+Output:
+
+Print the answer for each value 'X'.
+
+
+
+Constraints:
+
+1 <= T <= 542
+
+1000 <= X <= 109
+
+
+
+Example 1:
+
+Input:
+
+1
+
+40321
+
+Output:
+
+18
+
+Explanations:
+
+A(18) = 1!+ 8! = 40321 and 18 is the smallest element for which A(18) is 40321.
+
+Note, that A(80) = A(81) is also 40321. Among them, 18 is the smallest number.
+---------------------------------------------------------------------------------------------------------------------------------------------
+/*package whatever //do not write package name here */
+
+import java.io.*;
+import java.util.*;
+
+class Main {
+    public static int[] fact={1,1,2,6,24,120,720,5040,40320,362880};
+    public static void find_num(Long n, List<Integer> ans, int d){
+        if(n==0)
+            return;
+        if(fact[d]>n)
+            find_num(n,ans,d-1);
+        else{
+            n=n-fact[d];
+            ans.add(d);
+            find_num(n,ans,d);
+        }
+    }
+	public static void main (String[] args) throws IOException {
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		int T=Integer.parseInt(br.readLine());
+		while(T-- > 0){
+		    Long n=Long.parseLong(br.readLine());
+		    List<Integer> ans= new ArrayList<>();
+		    find_num(n,ans,9);
+		    Collections.reverse(ans);
+		    for(int x:ans){
+		        System.out.print(x);
+		    }
+		    System.out.println();
+		}
+	}
+}
+-----------------------------------------------
+#include <bits/stdc++.h> 
+using namespace std;
+
+int fib[10]={1,1,2,6,24,120,720,5040,40320,362880};
+
+void func(long long int n,vector<int> &ans,int d){
+    if(n==0)
+    return ;
+    
+    if(fib[d]>n){
+        d--;
+        func(n,ans,d);
+    }
+    else{
+        n-=fib[d];
+        ans.push_back(d);
+        func(n,ans,d);
+    }
+}
+
+int main()
+ {
+    int t;
+    cin>>t;
+    while(t--){
+        long long int n;
+        cin>>n;
+        vector<int> ans;
+        func(n,ans,9);
+        
+        for(int i=ans.size()-1;i>=0;i--){
+            cout<<ans[i];
+        }
+        cout<<endl;
+    }
+	return 0;
+}
+-------------------------------------------
+fact_val=[1,1,2,6,24,120,720,5040,40320,362880]
+
+def find_num(val,ans,d):
+    if val==0:
+        return
+    if(fact_val[d]>val):
+        find_num(val,ans,d-1)
+    else:
+        val=val-fact_val[d]
+        ans.append(d)
+        find_num(val,ans,d)
+
+
+T=int(input())
+while(T>0):
+    val=int(input())
+    ans=[]
+    find_num(val,ans,9)
+    ans=[ele for ele in reversed(ans)]
+    for i in range(len(ans)):
+        print(ans[i],end="")
+    print()
+    T=T-1
