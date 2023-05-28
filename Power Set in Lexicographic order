@@ -1,0 +1,37 @@
+Input : abc
+Output : a ab abc ac b bc c
+The idea is to sort array first. After sorting, one by one fix characters and recursively generates all subsets starting from them. 
+After every recursive call, we remove last character so that next permutation can be generated. 
+
+Time Complexity: O(n*2n) 
+Auxiliary Space: O(1)
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+import java.util.*;
+class PM {
+	static void fun(String str, int n,int index, String curr)
+	{
+		if (index == n) {
+			return;
+		}
+		System.out.println(curr);
+		for (int i = index +1; i < n; i++) {
+			curr += str.charAt(i);
+			fun(str, n, i, curr);
+			curr = curr.substring(0, curr.length() - 1);
+		}
+		return;
+	}
+	public static void main(String[] args)
+	{
+        Scanner z=new Scanner(System.in);
+		String str;
+        str=z.next();
+        int n=str.length();
+        char a[]=str.toCharArray();
+        Arrays.sort(a);
+        String s=new String(a);
+        fun(s,n, -1, "");
+	}
+}
+
