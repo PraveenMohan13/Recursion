@@ -1,0 +1,88 @@
+Great Forests
+Let us imagine a field as a 2D plane. Each cell is either water 'W' or a tree 'T'. A forest is a collection of connected trees. Two trees are connected if they share aside. That is, if they are adjacent to each other. Your task is to print the size of the largest forest for the given information about the field. The size of a forest is the number of trees in it. Look at the example, for a clear understanding.
+
+
+
+Format:
+
+Input:
+
+First-line contains the size of the matrix N. The next N lines contain N characters each, either 'W' or 'T'.
+
+Output:
+
+Print the size of the biggest forest.
+
+
+
+Constraint:
+
+1 <= N <= 1000
+
+
+
+Example:
+
+Input:
+
+5
+
+TTTWW
+
+TWWTT
+
+TWWTT
+
+TWTTT
+
+WWTTT
+
+Output:
+
+10
+
+Explanation:
+
+The forest on the top left has 6 trees, but the forest on the bottom right is bigger with 10 trees.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+import java.util.*;
+
+class Main{
+    static char[][] mat= new char[1000][1000];
+    static int n;
+    static int count=0;
+    public static void count_tree(int i,int j){
+        if(i<0 || i>=n || j<0 || j>=n)
+            return;
+        if(mat[i][j]=='T'){
+            mat[i][j]='W';
+            count++;
+            count_tree(i-1,j);
+            count_tree(i+1,j);
+            count_tree(i,j+1);
+            count_tree(i,j-1);
+        }
+    }
+    
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        n=sc.nextInt();
+        
+        for(int i=0;i<n;i++){
+                mat[i]=sc.next().toCharArray();
+        }
+        int max_count=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(mat[i][j]=='T'){
+                    count_tree(i,j);
+                    if(max_count <count)
+                        max_count=count;
+                    count=0;
+                }
+            }
+        }
+        System.out.print(max_count);
+    }
+}
