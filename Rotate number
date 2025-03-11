@@ -1,0 +1,41 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+    public static void main(String args[] ) throws Exception {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+        Scanner f = new Scanner(System.in);
+        int n = f.nextInt();
+        ArrayList<String> al = Stro(n,n);
+        al.sort(null);
+        for(String i : al ){
+            System.out.print(i+" ");
+        }
+    }
+    static ArrayList<String> Stro(int n,int len){
+        ArrayList<String> res = new ArrayList<>();
+        if(n == 0){
+            res.add("");
+         return res;   
+        }
+        if(n == 1){
+            res.add("1");
+            res.add("0");
+            res.add("8");
+            return res;
+        }
+        ArrayList<String> mid = Stro(n - 2,len);
+        for(String m:mid){
+            if(n!=len)
+                res.add("0"+ m+"0");
+            res.add("1"+m+"1");
+            res.add("6"+m+"9");
+            res.add("8"+m+"8");
+            res.add("9"+m+"6");
+        }
+        return res;
+    }
+}
